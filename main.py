@@ -31,14 +31,6 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://frontend-insurance-lapse-api-production.up.railway.app"],  # ganti "*" dengan domain frontend spesifik saat sudah production, mis. ["https://frontend-anda.up.railway.app"]
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 class PolicyInputSchema(BaseModel):
     entry_age: int = Field(..., ge=0, le=100, example=35, description="Usia masuk tertanggung")
