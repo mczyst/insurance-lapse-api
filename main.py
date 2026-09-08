@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import joblib
 import numpy as np
 import pandas as pd
@@ -28,6 +29,14 @@ app = FastAPI(
     description="Backend API berbasis Machine Learning untuk evaluasi risiko terminasi/lapse polis asuransi.",
     version="1.0.0",
     lifespan=lifespan,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://frontend-insurance-lapse-api.vercel.app/"],  # ganti "*" dengan domain frontend spesifik saat sudah production, mis. ["https://frontend-anda.up.railway.app"]
+    allow_credentials=True,
+    allow_methods=["https://frontend-insurance-lapse-api.vercel.app/"],
+    allow_headers=["https://frontend-insurance-lapse-api.vercel.app/"],
 )
 
 
