@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY main.py .
+COPY models/ models/
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
+# Render/Railway inject the port via $PORT; default to 8000 for local docker run.
+ENV PORT=8000
+EXPOSE 8000
+
+# Using a real script file (rather than an inline CMD string) removes any
+# ambiguity about how the platform parses/executes the Dockerfile's CMD line.
+ENTRYPOINT ["./entrypoint.sh"]
