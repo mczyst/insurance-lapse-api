@@ -35,8 +35,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://frontend-insurance-lapse-api.vercel.app/"],  # ganti "*" dengan domain frontend spesifik saat sudah production, mis. ["https://frontend-anda.up.railway.app"]
     allow_credentials=True,
-    allow_methods=["https://frontend-insurance-lapse-api.vercel.app/"],
-    allow_headers=["https://frontend-insurance-lapse-api.vercel.app/"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
