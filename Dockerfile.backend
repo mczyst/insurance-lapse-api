@@ -12,4 +12,7 @@ COPY models/ models/
 ENV PORT=8000
 EXPOSE 8000
 
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}
+# Exec form explicitly invoking a shell guarantees $PORT gets substituted,
+# unlike relying on Docker's implicit shell-form parsing (which some platforms
+# handle inconsistently). ${PORT:-8000} also falls back to 8000 if PORT is unset.
+CMD ["/bin/sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
